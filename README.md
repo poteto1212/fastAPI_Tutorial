@@ -32,3 +32,8 @@ Traceback (most recent call last):
     raise TypeError('{!r} is not a callable object'.format(obj))
 TypeError: <module 'fastapi.security' from '/home/ubuntu/.local/lib/python3.6/site-packages/fastapi/security/__init__.py'> is not a callable object
 ```
+# 考察
+クラスを呼び出せていない
+
+# 参考
+https://rightcode.co.jp/blog/information-technology/fastapi-tutorial-todo-apps-authentication-user-registration
