@@ -4,6 +4,10 @@ from starlette.requests import Request
 from starlette.templating import Jinja2Templates
 
 
+#データベース関連プログラムのインポート
+import db
+from models import User, Task
+
 app=FastAPI(
     title='FastAPIで作るアプリケーション',
     description='FastAPIチュートリアル：FastAPI(とstarlette)でシンプルなtoDoアプリを作りましょう',
@@ -21,8 +25,16 @@ def index(request: Request):
                                     )
 
 def admin(request: Request):
+    #クエリ取得
+    #管理ユーザーのみを取得する。
+    user=db.session.query(User).filter(User.username=='admin').first()
+    #管理ユーザーが書いたタスクを全て取得
+    task=db.session.query(Task).filter(Task.user_id == user.id).all()
+    #データ取得後はセッションをクローズ
+    db.session.close()    
     return templates.TemplateResponse('admin.html',
                                     {'request':request,
-                                    'username':'admin'}
+                                    'user':user,
+                                    'task':task}
                                     )
 
